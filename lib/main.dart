@@ -1,3 +1,6 @@
+import 'package:provider/provider.dart';
+import 'package:responsive_website/controllers/MenuController.dart';
+
 import './constants.dart';
 import './screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +23,14 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      home: MainScreen(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MenuController(),
+          )
+        ],
+        child: MainScreen(),
+      ),
     );
   }
 }

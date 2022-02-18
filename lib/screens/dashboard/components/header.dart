@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:responsive_website/responsive.dart';
 
 import '../../../constants.dart';
+import '../../../controllers/MenuController.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -12,11 +15,17 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "Dashboard",
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        Spacer(flex: 2),
+        if (!Responsive.isDesktop(context))
+          IconButton(
+              onPressed: context.read<MenuController>().controlMenu,
+              icon: const Icon(Icons.menu)),
+        if (!Responsive.isMobile(context))
+          Text(
+            "Dashboard",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        if (!Responsive.isMobile(context))
+          Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         Expanded(child: SearchField()),
         ProfileCard(),
       ],
@@ -48,10 +57,12 @@ class ProfileCard extends StatelessWidget {
             "assets/images/profile_pic.png",
             height: 38,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            child: Text("Angelina Joli"),
-          ),
+          if (!Responsive.isMobile(context))
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              child: Text("Angelina Joli"),
+            ),
           Icon(Icons.keyboard_arrow_down),
         ],
       ),

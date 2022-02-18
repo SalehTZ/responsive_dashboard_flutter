@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_website/constants.dart';
+import 'package:responsive_website/responsive.dart';
 
-import 'components/chart.dart';
 import 'components/header.dart';
+import 'components/my_files.dart';
+import 'components/recent_files.dart';
 import 'components/storage_details.dart';
-import 'components/storage_info_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({Key? key}) : super(key: key);
@@ -31,16 +30,24 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 5,
-                    child: Container(
-                      height: 500,
-                      color: Colors.green,
+                    child: Column(
+                      children: [
+                        MyFiles(),
+                        SizedBox(height: defaultPadding),
+                        RecentFilesCard(),
+                        if (Responsive.isMobile(context))
+                          SizedBox(height: defaultPadding),
+                        if (Responsive.isMobile(context)) StorageDetails()
+                      ],
                     ),
                   ),
-                  SizedBox(width: defaultPadding / 2),
-                  Expanded(
-                    flex: 2,
-                    child: StorageDetails(),
-                  )
+                  if (!Responsive.isMobile(context))
+                    SizedBox(width: defaultPadding),
+                  if (!Responsive.isMobile(context))
+                    Expanded(
+                      flex: 2,
+                      child: StorageDetails(),
+                    )
                 ],
               ),
             ],

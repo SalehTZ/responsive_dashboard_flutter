@@ -18,7 +18,7 @@ class StorageDetails extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            vertical: defaultPadding, horizontal: defaultPadding / 2),
+            vertical: defaultPadding, horizontal: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
